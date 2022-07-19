@@ -1,12 +1,25 @@
+require "language/node"
+
 class Cryptowallet < Formula
-    desc "Crypto wallet generator CLI tool"
-    homepage "https://github.com/yerofey/cryptowallet-cli"
-    url "https://github.com/yerofey/cryptowallet-cli/releases/download/v1.6.1/cryptowallet-cli-macos.tar.gz"
-    sha256 "87007f3f20686b6fe0444c8c49a4b0c61387a2dd5766329569dd9e0494ad1aa8"
-    license "MIT"
-    version "1.6.1"
-  
-    def install
-        bin.install "cryptowallet"
-    end
+  desc "> Crypto wallet generator CLI tool"
+  homepage "https://github.com/yerofey/cryptowallet-cli"
+  url "https://registry.npmjs.org/@yerofey/cryptowallet-cli/-/cryptowallet-cli-1.6.1.tgz"
+  sha256 "253c1d1854ae3f3537a1f03a0ce058a729d217d4f99d3aa28ecb9d0c34ed4baf"
+  license "MIT"
+  version "1.6.1"
+
+  livecheck do
+    url :stable
+  end
+
+  depends_on "node"
+
+  def install
+    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    bin.install_symlink Dir["#{libexec}/bin/*"]
+  end
+
+  test do
+    raise "Test not implemented."
+  end
 end
